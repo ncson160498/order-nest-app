@@ -12,19 +12,21 @@ export class UserService {
     private readonly userRepository: Repository<User>,
   ) {}
   get() {
-    return { name: 'Cong Son 1', email: 'ncson1604@gmail.com' };
-    // return this.userRepository.find();
+    // return { name: 'Cong Son 1', email: 'ncson1604@gmail.com' };
+    return this.userRepository.find();
   }
   create(createUserDto: CreateUserDto) {
-    return createUserDto;
+    return this.userRepository.save(createUserDto);
+    // return createUserDto;
   }
   update(updateUserDto: UpdateUserDto, userId: number) {
-    return { body: updateUserDto, userId };
+    return this.userRepository.update(userId, updateUserDto);
+    // return { body: updateUserDto, userId };
   }
-  show(userId: number) {
-    return { userId };
+  show(id: number) {
+    return this.userRepository.findOne({where:{id}});
   }
   delete(userId: number) {
-    return { userId };
+    return this.userRepository.delete(userId);
   }
 }
