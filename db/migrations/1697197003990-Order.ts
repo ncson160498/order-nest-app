@@ -19,7 +19,7 @@ export class Order1697197003990 implements MigrationInterface {
       name: this.tableName,
       columns: [
         {
-          name: 'Order_Id',
+          name: 'order_id',
           type: 'uuid',
           isPrimary: true,
           isNullable: false,
