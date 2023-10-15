@@ -12,6 +12,6 @@ export class Customer {
   @Column()
   Address: string;
 
-  @OneToMany(() => Order, (order) => order.customer)
-  orders: Order[];
+  // @OneToMany(() => Order, (order) => order.customer)
+  // orders: Order[];
 }

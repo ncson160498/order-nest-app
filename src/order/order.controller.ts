@@ -28,6 +28,7 @@ export class OrderController {
   }
   @Get('/:orderID')
   getOrder(@Param() orderID: string) {
+    console.log(orderID);
     return this.orderService.getOne(orderID);
   }
   @Delete('/:orderID')
