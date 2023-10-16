@@ -2,8 +2,8 @@ import { IsString } from 'class-validator';
 
 export class UpdateOrderDto {
   @IsString()
-  Order_Name: string;
+  order_name: string;
 
   @IsString()
-  Status: string;
+  status: number;
 }

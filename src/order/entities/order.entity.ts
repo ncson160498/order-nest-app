@@ -11,24 +11,20 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 @Entity()
-@ObjectType()
-
 export class Order {
   @PrimaryGeneratedColumn('uuid')
-  Order_Id: string;
+  id: string;
+  @Column({ name: 'customer_id' })
+  customer_id: string;
   @Column()
-  Customer_Id: string;
+  order_name: string;
   @Column()
-  Order_Name: string;
-  @Column()
-  Status: string;
+  status: string;
   @CreateDateColumn()
   createdDate: Date;
-  @Column({ type: 'numeric', precision: 10, scale: 2 })
-  Total_Price: string;
+  @Column({ type: 'numeric', precision: 30 })
+  total_price: string;
 
-  // @ManyToOne(()=>Customer, (customer)=>customer.orders)
-  // @JoinTable({name: 'Customer_Id',})
-  // @TypeormLoader()
-  // customer : Customer;
+  @ManyToOne(() => Customer, (customer) => customer.orders)
+  customer: Customer;
 }

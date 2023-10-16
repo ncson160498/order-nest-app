@@ -2,10 +2,9 @@ import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 export class Manage1697194706743 implements MigrationInterface {
   //   name = 'Customer1697191662731';
-  private tableName = 'Manage';
   public async up(queryRunner: QueryRunner): Promise<void> {
     const table = new Table({
-      name: this.tableName,
+      name: 'manage',
       columns: [
         {
           name: 'id',
@@ -14,17 +13,17 @@ export class Manage1697194706743 implements MigrationInterface {
           isNullable: false,
         },
         {
-          name: 'Name',
+          name: 'name',
           type: 'varchar',
           isNullable: false,
         },
         {
-          name: 'Phone',
+          name: 'phone',
           type: 'int',
           isNullable: false,
         },
         {
-          name: 'Address',
+          name: 'address',
           type: 'varchar',
           isNullable: false,
         },
@@ -34,6 +33,6 @@ export class Manage1697194706743 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable(this.tableName);
+    await queryRunner.dropTable('manage');
   }
 }

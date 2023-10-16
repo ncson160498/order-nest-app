@@ -1,19 +1,24 @@
 import { Expose } from 'class-transformer';
-import { IsNotEmpty, IsNumber, IsString, Max, Min } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateCustomerDto {
-  @Expose()
-  @IsNotEmpty()
-  @IsString()
-  Name: string;
+  // @Expose()
+  // @IsNotEmpty()
+  // @IsUUID()
+  // customer_id:string
 
   @Expose()
   @IsNotEmpty()
   @IsString()
-  Phone: number;
+  name: string;
 
   @Expose()
   @IsNotEmpty()
   @IsString()
-  Address: string;
+  phone: number;
+
+  @Expose()
+  @IsNotEmpty()
+  @IsString()
+  address: string;
 }

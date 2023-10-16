@@ -22,17 +22,17 @@ export class OrderController {
   store(@Body() createOrderDto: CreateOrderDto) {
     return this.orderService.create(createOrderDto);
   }
-  @Patch('/:orderId')
-  update(@Body() updateOrderDto: UpdateOrderDto, @Param() orderId: number) {
-    return this.orderService.update(updateOrderDto, orderId);
-  }
-  @Get('/:orderID')
-  getOrder(@Param() orderID: string) {
-    console.log(orderID);
-    return this.orderService.getOne(orderID);
-  }
-  @Delete('/:orderID')
-  deleteOrder(@Param() orderID: string) {
-    return this.orderService.delete(orderID);
-  }
+  // @Patch('/:orderId')
+  // update(@Body() updateOrderDto: UpdateOrderDto, @Param() orderId: number) {
+  //   return this.orderService.update(updateOrderDto, orderId);
+  // }
+  // @Get('/:orderID')
+  // getOrder(@Param() orderID: string) {
+  //   console.log(orderID);
+  //   return this.orderService.getOne(orderID);
+  // }
+  // @Delete('/:orderID')
+  // deleteOrder(@Param() orderID: string) {
+  //   return this.orderService.delete(orderID);
+  // }
 }

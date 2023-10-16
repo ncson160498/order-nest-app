@@ -1,57 +1,62 @@
-import { MigrationInterface, QueryRunner, Table, TableForeignKey } from "typeorm";
+import {
+  MigrationInterface,
+  QueryRunner,
+  Table,
+  TableForeignKey,
+} from 'typeorm';
 
 export class OderDetail1697212795231 implements MigrationInterface {
-    private tableName = 'Order_Detail';
-    private toProduct = new TableForeignKey({
-        name: 'fk_Order_Detail_Product',
-        columnNames: ['Product_Id'],
-        referencedColumnNames: ['id'],
-        referencedTableName: 'Product',
+  private toProduct = new TableForeignKey({
+    name: 'fk_order_items_product',
+    columnNames: ['product_id'],
+    referencedColumnNames: ['id'],
+    referencedTableName: 'product',
+  });
+  private toOrder = new TableForeignKey({
+    name: 'fk_order_items_order',
+    columnNames: ['order_id'],
+    referencedColumnNames: ['order_id'],
+    referencedTableName: 'order',
+  });
+  public async up(queryRunner: QueryRunner): Promise<void> {
+    const table = new Table({
+      name: 'order_items',
+      columns: [
+        {
+          name: 'id',
+          type: 'uuid',
+          isPrimary: true,
+          isNullable: false,
+        },
+        {
+          name: 'order_id',
+          type: 'uuid',
+          isNullable: false,
+        },
+        {
+          name: 'product_id',
+          type: 'uuid',
+          isNullable: false,
+        },
+        {
+          name: 'quantity',
+          type: 'integer',
+          isNullable: false,
+        },
+        {
+          name: 'price',
+          type: 'numeric(10,1)',
+          isNullable: false,
+        },
+      ],
     });
-    private toOrder = new TableForeignKey({
-        name: 'fk_Order_Detail_Order',
-        columnNames: ['Order_Id'],
-        referencedColumnNames: ['Order_Id'],
-        referencedTableName: 'Order',
-    });
-    public async up(queryRunner: QueryRunner): Promise<void> {
-        const table = new Table({
-            name: this.tableName,
-            columns: [
-                {
-                    name: 'ID',
-                    type: 'uuid',
-                    isPrimary: true,
-                    isNullable: false,
-                },
-                {
-                    name: 'Order_Id',
-                    type: 'uuid',
-                    isNullable: false,
-                },
-                {
-                    name: 'Product_Id',
-                    type: 'uuid',
-                    isNullable: false,
-                },
-                {
-                    name: 'Quantity',
-                    type: 'integer',
-                    isNullable: false,
-                },
-                {
-                    name: 'Price',
-                    type: 'numeric(30)',
-                    isNullable: false,
-                },
-            ],
-        });
-        await queryRunner.createTable(table);
-        await queryRunner.createForeignKey('Order_Detail', this.toOrder);
-        await queryRunner.createForeignKey('Order_Detail', this.toProduct);
-    }
-    public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable(this.tableName);
-      }
-
+    await queryRunner.createTable(table);
+    await queryRunner.createForeignKey('order_items', this.toOrder);
+    await queryRunner.createForeignKey('order_items', this.toProduct);
+  }
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.dropForeignKey('order_items', this.toOrder);
+    await queryRunner.dropForeignKey('order_items', this.toProduct);
+    await queryRunner.dropTable('order_items');
+  }
 }

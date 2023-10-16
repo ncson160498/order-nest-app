@@ -1,30 +1,29 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class Customer1697191662731 implements MigrationInterface {
-  //   name = 'Customer1697191662731';
-  private tableName = 'Customer';
+export class Customer1697428019018 implements MigrationInterface {
+  private tableName = 'customer';
   public async up(queryRunner: QueryRunner): Promise<void> {
     const table = new Table({
       name: this.tableName,
       columns: [
         {
-          name: 'id',
+          name: 'customer_id',
           type: 'uuid',
           isPrimary: true,
           isNullable: false,
         },
         {
-          name: 'Name',
+          name: 'name',
           type: 'varchar',
           isNullable: false,
         },
         {
-          name: 'Phone',
+          name: 'phone',
           type: 'int',
           isNullable: false,
         },
         {
-          name: 'Address',
+          name: 'address',
           type: 'varchar',
           isNullable: false,
         },

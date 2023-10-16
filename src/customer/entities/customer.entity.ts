@@ -1,17 +1,23 @@
 import { Order } from 'src/order/entities/order.entity';
-import { Column, Entity, JoinTable, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Customer {
   @PrimaryGeneratedColumn('uuid')
   id: string;
   @Column()
-  Name: string;
+  name: string;
   @Column()
-  Phone: number;
+  phone: number;
   @Column()
-  Address: string;
+  address: string;
 
-  // @OneToMany(() => Order, (order) => order.customer)
-  // orders: Order[];
+  @OneToMany(() => Order, (order) => order.customer)
+  orders: Order[];
 }

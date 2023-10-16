@@ -1,19 +1,20 @@
 import { Expose } from "class-transformer";
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsNotEmpty, IsString, Length } from "class-validator";
+import { isLength } from "lodash";
 
 export class CreateManageDto{
     @Expose()
     @IsNotEmpty()
     @IsString()
-    Name: string;
+    name: string;
 
     @Expose()
     @IsNotEmpty()
     @IsString()
-    Phone: string
+    phone: string
 
     @Expose()
     @IsNotEmpty()
     @IsString()
-    Address: string
+    address: string
 }

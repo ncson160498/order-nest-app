@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 export class Product1697194831582 implements MigrationInterface {
-  private tableName = 'Product';
+  private tableName = 'product';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     const table = new Table({
@@ -14,18 +14,18 @@ export class Product1697194831582 implements MigrationInterface {
           isNullable: false,
         },
         {
-          name: 'Product_Name',
+          name: 'name',
           type: 'varchar',
           isNullable: false,
         },
         {
-          name: 'Quantity',
+          name: 'quantity',
           type: 'int',
           isNullable: false,
         },
         {
-          name: 'Price',
-          type: 'float',
+          name: 'price',
+          type: 'numeric (10,1)',
           isNullable: false,
         },
       ],

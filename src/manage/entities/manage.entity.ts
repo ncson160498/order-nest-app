@@ -5,9 +5,10 @@ export class Manage{
     @PrimaryGeneratedColumn('uuid')
     id:string;
     @Column()
-    Name:string;
+    name:string;
     @Column()
-    Phone:string;
+    phone:string;
     @Column()
-    Address:string;
+    address:string;
+    
 }

@@ -11,25 +11,25 @@ export class CreateOrderDto {
   @Expose()
   @IsNotEmpty()
   @IsUUID()
-  Customer_Id: string;
+  customer_id: string;
 
   @Expose()
   @IsOptional()
   @IsString()
-  Order_Name: string;
+  order_name: string;
+
+  // @Expose()
+  // @IsOptional()
+  // @IsString()
+  // status: string;
+
+  // @Expose()
+  // @IsDateString()
+  // @IsOptional()
+  // createdDate: Date;
 
   @Expose()
   @IsOptional()
   @IsString()
-  Status: string;
-
-  @Expose()
-  @IsDateString()
-  @IsOptional()
-  createdDate: string;
-
-  @Expose()
-  @IsOptional()
-  @IsString()
-  Total_Price: string;
+  total_price: string;
 }

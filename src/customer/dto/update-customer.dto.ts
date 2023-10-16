@@ -2,11 +2,11 @@ import { IsNumber, IsString } from 'class-validator';
 
 export class UpdateCustomerDto {
   @IsString()
-  Name: string;
+  name: string;
 
-  @IsNumber()
-  Phone: number;
-  
   @IsString()
-  Address: string;
+  phone: number;
+
+  @IsString()
+  address: string;
 }

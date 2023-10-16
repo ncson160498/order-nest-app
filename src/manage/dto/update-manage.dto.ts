@@ -4,13 +4,13 @@ import { IsNotEmpty, IsString } from "class-validator";
 export class UpdateManageDto{
     
     @IsString()
-    Name: string;
+    name: string;
 
   
     @IsString()
-    Phone: string
+    phone: string
 
    
     @IsString()
-    Address: string
+    address: string
 }

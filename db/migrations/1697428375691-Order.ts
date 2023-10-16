@@ -5,37 +5,36 @@ import {
   TableForeignKey,
 } from 'typeorm';
 
-export class Order1697195451782 implements MigrationInterface {
-  private tableName = 'Order';
+export class Order1697428375691 implements MigrationInterface {
+  private tableName = 'order';
   private toCustomer = new TableForeignKey({
-    name: 'fk_order_customer',
-    columnNames: ['Customer_Id'],
-    referencedColumnNames: ['id'],
-    referencedTableName: 'Customer',
+    name: 'fk_customer_order',
+    columnNames: ['customer_id'],
+    referencedColumnNames: ['customer_id'],
+    referencedTableName: 'customer',
   });
-
   public async up(queryRunner: QueryRunner): Promise<void> {
     const table = new Table({
       name: this.tableName,
       columns: [
         {
-          name: 'Order_Id',
+          name: 'order_id',
           type: 'uuid',
           isPrimary: true,
           isNullable: false,
         },
         {
-          name: 'Customer_Id',
+          name: 'customer_id',
           type: 'uuid',
           isNullable: false,
         },
         {
-          name: 'Order_Name',
+          name: 'order_name',
           type: 'varchar',
           isNullable: false,
         },
         {
-          name: 'Status',
+          name: 'status',
           type: 'smallint',
           isNullable: false,
           default: 0,
@@ -47,17 +46,18 @@ export class Order1697195451782 implements MigrationInterface {
           default: 'now()',
         },
         {
-          name: 'Total_Price',
+          name: 'total_price',
           type: 'numeric (30)',
           isNullable: false,
         },
       ],
     });
     await queryRunner.createTable(table);
-    await queryRunner.createForeignKey('Order', this.toCustomer);
+    await queryRunner.createForeignKey('order', this.toCustomer);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.dropForeignKey('order', this.toCustomer);
     await queryRunner.dropTable(this.tableName);
   }
 }
