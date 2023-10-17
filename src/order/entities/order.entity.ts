@@ -1,6 +1,6 @@
-import { Customer } from 'src/customer/entities/customer.entity';
-import { OrderItem } from 'src/order-item/entities/order-item.entity';
-import { Field } from 'type-graphql';
+import { Customer } from "src/customer/entities/customer.entity";
+import { OrderItem } from "src/order-item/entities/order-item.entity";
+import { Field } from "type-graphql";
 import {
   Column,
   CreateDateColumn,
@@ -9,21 +9,21 @@ import {
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
-} from 'typeorm';
+} from "typeorm";
 
 @Entity()
 export class Order {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   @Field()
   public id: string;
 
-  @Column({ name: 'customer_id' })
+  @Column({ name: "customer_id" })
   @Field()
-  public customer_id: string;
+  public customerID: string;
 
-  @Column()
+  @Column({ name: "order_name" })
   @Field()
-  public order_name: string;
+  public orderName: string;
 
   @Column()
   @Field()
@@ -32,14 +32,14 @@ export class Order {
   @CreateDateColumn()
   public createdDate: Date;
 
-  @Column({ type: 'numeric', precision: 30 })
+  @Column({ name: "total_price", type: "numeric", precision: 30 })
   @Field()
-  public total_price: string;
+  public totalPrice: string;
 
   @ManyToOne(() => Customer, (customer) => customer.orders)
-  @JoinColumn({ name: 'customer_id' })
+  @JoinColumn({ name: "customer_id" })
   public customer: Customer;
 
-  @OneToMany(()=>OrderItem, (orderItem)=>orderItem.order)
-  public orderItems : OrderItem[] ;
+  @OneToMany(() => OrderItem, (orderItem) => orderItem.order)
+  public orderItems: OrderItem[];
 }

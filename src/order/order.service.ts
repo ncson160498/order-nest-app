@@ -29,17 +29,21 @@ export class OrderService {
 
     try {
       const newOrder = new Order();
+      let total = 0;
       _.assign(newOrder, body);
       newOrder.id = uuid();
       for (const item of orderItems) {
         const newOrderItem = new OrderItem();
         newOrderItem.id = uuid();
         newOrderItem.order_id = newOrder.id;
-        // let price = parseFloat();
+        // let price = parseFloat()
         const product = await this.productRepository.findOne({
           where: { id: item.productID },
         });
+        total += parseFloat(product.price) * parseFloat(newOrderItem.quantity);
       }
+      newOrder.totalPrice = total.toString();
+      console.log(newOrder);
       const result = await this.orderRepository.save(newOrder);
       return result;
     } catch (error) {
