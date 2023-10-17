@@ -11,7 +11,7 @@ export class CreateOrderItemDto {
   @Expose()
   @IsNotEmpty()
   @IsString()
-  product_id: string;
+  productID: string;
 
   @Expose()
   @IsNotEmpty()
