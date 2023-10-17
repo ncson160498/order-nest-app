@@ -1,22 +1,25 @@
-import { Expose } from 'class-transformer';
+import { Expose, Type } from "class-transformer";
 import {
+  IsArray,
   IsDateString,
   IsNotEmpty,
   IsOptional,
   IsString,
   IsUUID,
-} from 'class-validator';
+  ValidateNested,
+} from "class-validator";
+import { CreateOrderItemDto } from "src/order-item/dto/order-item.dto";
 
-export class CreateOrderDto {
+export class CreateOrderBodyDto {
   @Expose()
   @IsNotEmpty()
   @IsUUID()
-  customer_id: string;
+  customerID: string;
 
   @Expose()
   @IsOptional()
   @IsString()
-  order_name: string;
+  orderName: string;
 
   // @Expose()
   // @IsOptional()
@@ -31,5 +34,11 @@ export class CreateOrderDto {
   @Expose()
   @IsOptional()
   @IsString()
-  total_price: string;
+  totalPrice: string;
+
+  @Expose()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => CreateOrderItemDto)
+  public orderItems: CreateOrderItemDto[];
 }

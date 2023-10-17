@@ -1,6 +1,6 @@
-import { CreateOrderDto } from './dto/create-order.dto';
-import { UpdateOrderDto } from './dto/update-order.dto';
-import { OrderService } from './order.service';
+import { CreateOrderBodyDto } from "./dto/create-order.dto";
+import { UpdateOrderDto } from "./dto/update-order.dto";
+import { OrderService } from "./order.service";
 import {
   Body,
   Controller,
@@ -9,9 +9,9 @@ import {
   Param,
   Patch,
   Post,
-} from '@nestjs/common';
+} from "@nestjs/common";
 
-@Controller('order')
+@Controller("order")
 export class OrderController {
   constructor(private orderService: OrderService) {}
   @Get()
@@ -19,20 +19,20 @@ export class OrderController {
     return this.orderService.get();
   }
   @Post()
-  store(@Body() createOrderDto: CreateOrderDto) {
+  store(@Body() createOrderDto: CreateOrderBodyDto) {
     return this.orderService.create(createOrderDto);
   }
-  // @Patch('/:orderId')
-  // update(@Body() updateOrderDto: UpdateOrderDto, @Param() orderId: number) {
-  //   return this.orderService.update(updateOrderDto, orderId);
-  // }
-  // @Get('/:orderID')
-  // getOrder(@Param() orderID: string) {
-  //   console.log(orderID);
-  //   return this.orderService.getOne(orderID);
-  // }
-  // @Delete('/:orderID')
-  // deleteOrder(@Param() orderID: string) {
-  //   return this.orderService.delete(orderID);
-  // }
+  @Patch("/:id")
+  update(@Param() id: string, @Body() updateOrderDto: UpdateOrderDto) {
+    return this.orderService.update(id, updateOrderDto);
+  }
+  @Get("/:id")
+  getOrder(@Param() id: string) {
+    // console.log(orderID);
+    return this.orderService.getOne(id);
+  }
+  @Delete("/:id")
+  deleteOrder(@Param() id: string) {
+    return this.orderService.delete(id);
+  }
 }

@@ -6,9 +6,9 @@ export const dataSourceOptions: DataSourceOptions = {
   username: "postgres",
   password: "123456",
   database: "nestjs",
-  // entities: ['dist/**/*.entity.js'],
+  entities: ['dist/**/*.entity.js'],
   synchronize: false,
-  // migrations: ['dist/db/migrations/*.js'],
+  migrations: ['dist/db/migrations/*.js'],
 };
 const dataSource = new DataSource(dataSourceOptions);
 export default dataSource;

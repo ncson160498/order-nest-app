@@ -1,3 +1,4 @@
+import { ProductModule } from './product/product.module';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { UserModule } from './user/user.module';
@@ -5,15 +6,19 @@ import { UserModule } from './user/user.module';
 import { OrderModule } from './order/order.module';
 import { CustomerModule } from './customer/customer.module';
 import { ManageModule } from './manage/manage.module';
-import { TypeormLoader } from './loaders/typeormLoader';
+import { dataSourceOptions } from 'db/data-source';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { OrderItemModule } from './order-item/order-item.module';
 
 @Module({
   imports: [
-    TypeormLoader,
+    TypeOrmModule.forRoot(dataSourceOptions),
     UserModule,
     OrderModule,
     CustomerModule,
     ManageModule,
+    ProductModule,
+    OrderItemModule,
   ],
   controllers: [AppController],
 })

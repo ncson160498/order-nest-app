@@ -1,27 +1,25 @@
 import { Customer } from 'src/customer/entities/customer.entity';
-import { Field, ObjectType } from 'type-graphql';
-import { TypeormLoader } from 'type-graphql-dataloader';
+import { OrderItem } from 'src/order-item/entities/order-item.entity';
+import { Field } from 'type-graphql';
 import {
   Column,
   CreateDateColumn,
   Entity,
   JoinColumn,
-  JoinTable,
   ManyToOne,
   OneToMany,
-  PrimaryColumn,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
 @Entity()
 export class Order {
-  @PrimaryColumn('uuid')
+  @PrimaryGeneratedColumn('uuid')
   @Field()
   public id: string;
 
   @Column({ name: 'customer_id' })
   @Field()
-  public customerID: string;
+  public customer_id: string;
 
   @Column()
   @Field()
@@ -41,4 +39,7 @@ export class Order {
   @ManyToOne(() => Customer, (customer) => customer.orders)
   @JoinColumn({ name: 'customer_id' })
   public customer: Customer;
+
+  @OneToMany(()=>OrderItem, (orderItem)=>orderItem.order)
+  public orderItems : OrderItem[] ;
 }

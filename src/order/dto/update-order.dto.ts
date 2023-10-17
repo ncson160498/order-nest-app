@@ -5,5 +5,8 @@ export class UpdateOrderDto {
   order_name: string;
 
   @IsString()
-  status: number;
+  status: string;
+
+  @IsString()
+  total_price:string;
 }

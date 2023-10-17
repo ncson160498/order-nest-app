@@ -19,7 +19,7 @@ export class Manage1697194706743 implements MigrationInterface {
         },
         {
           name: 'phone',
-          type: 'int',
+          type: 'varchar',
           isNullable: false,
         },
         {
