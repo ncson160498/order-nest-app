@@ -4,6 +4,7 @@ import { OrderItemService } from "./order-item.service";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { OrderItem } from "./entities/order-item.entity";
 import { ProductModule } from "src/product/product.module";
+import { Product } from "src/product/entities/product.entity";
 
 @Module({
   controllers: [OrderItemController],

@@ -11,11 +11,11 @@ export class OrderItem{
 
     @Column({name:'order_id'})
     @Field()
-    public order_id:string
+    public orderID:string
 
     @Column({name: 'product_id'})
     @Field()
-    public product_id:string
+    public productID:string
 
     @Column()
     @Field()

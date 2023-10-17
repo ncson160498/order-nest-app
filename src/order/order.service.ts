@@ -26,7 +26,6 @@ export class OrderService {
     // return this.orderRepository.save(createOrderDto);
     // console.log(createOrderDto);
     const { orderItems } = body;
-
     try {
       const newOrder = new Order();
       let total = 0;
@@ -35,15 +34,18 @@ export class OrderService {
       for (const item of orderItems) {
         const newOrderItem = new OrderItem();
         newOrderItem.id = uuid();
-        newOrderItem.order_id = newOrder.id;
+        newOrderItem.orderID = newOrder.id;
         // let price = parseFloat()
         const product = await this.productRepository.findOne({
           where: { id: item.productID },
         });
+        // console.log(parseFloat(item.price) * parseFloat(product.quantity));
         total += parseFloat(product.price) * parseFloat(newOrderItem.quantity);
+        // console.log(total);
+        // console.log(newOrder);
       }
       newOrder.totalPrice = total.toString();
-      console.log(newOrder);
+      
       const result = await this.orderRepository.save(newOrder);
       return result;
     } catch (error) {
