@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { ManageService } from './manage.service';
 import { CreateManageDto } from './dto/create-manage.dto';
 import { UpdateManageDto } from './dto/update-manage.dto';
@@ -7,15 +15,23 @@ import { UpdateManageDto } from './dto/update-manage.dto';
 export class ManageController {
   constructor(private manageService: ManageService) {}
   @Get()
-  getManage() {
+  getManages() {
     return this.manageService.get();
   }
   @Post()
   store(@Body() createManageDto: CreateManageDto) {
     return this.manageService.create(createManageDto);
   }
-  // @Patch(':id')
-  // update(@Body()  updateManageDto: UpdateManageDto,@Param() id: string){
-  //     return this.namageService.update(updateManageDto,id);
-  // }
+  @Patch(':id')
+  update(@Param() id: string, @Body() updateManageDto: UpdateManageDto) {
+    return this.manageService.update(id, updateManageDto);
+  }
+  @Get(':id')
+  getManage(@Param() id: string) {
+    return this.manageService.getOne(id);
+  }
+  @Delete(':id')
+  deleteManage(@Param() id: string) {
+    return this.manageService.delete(id);
+  }
 }

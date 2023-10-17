@@ -26,4 +26,13 @@ export class ManageService {
       throw error;
     }
   }
+  update(data: any, updateManageDto: UpdateManageDto) {
+    return this.manageRepository.update(data.id, updateManageDto);
+  }
+  getOne(data: any) {
+    return this.manageRepository.findOne({ where: { id: data.id } });
+  }
+  delete(data: any) {
+    return this.manageRepository.delete(data.id);
+  }
 }
