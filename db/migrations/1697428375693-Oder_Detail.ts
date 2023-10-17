@@ -5,7 +5,8 @@ import {
   TableForeignKey,
 } from 'typeorm';
 
-export class OderDetail1697212795231 implements MigrationInterface {
+export class OderDetail1697428375693 implements MigrationInterface {
+  private tableName = 'order_item';
   private toProduct = new TableForeignKey({
     name: 'fk_order_items_product',
     columnNames: ['product_id'],
@@ -15,12 +16,12 @@ export class OderDetail1697212795231 implements MigrationInterface {
   private toOrder = new TableForeignKey({
     name: 'fk_order_items_order',
     columnNames: ['order_id'],
-    referencedColumnNames: ['order_id'],
+    referencedColumnNames: ['id'],
     referencedTableName: 'order',
   });
   public async up(queryRunner: QueryRunner): Promise<void> {
     const table = new Table({
-      name: 'order_items',
+      name: this.tableName,
       columns: [
         {
           name: 'id',
@@ -38,9 +39,10 @@ export class OderDetail1697212795231 implements MigrationInterface {
           type: 'uuid',
           isNullable: false,
         },
+        // Review code
         {
           name: 'quantity',
-          type: 'integer',
+          type: 'real',
           isNullable: false,
         },
         {
@@ -51,12 +53,12 @@ export class OderDetail1697212795231 implements MigrationInterface {
       ],
     });
     await queryRunner.createTable(table);
-    await queryRunner.createForeignKey('order_items', this.toOrder);
-    await queryRunner.createForeignKey('order_items', this.toProduct);
+    await queryRunner.createForeignKey(this.tableName, this.toOrder);
+    await queryRunner.createForeignKey(this.tableName, this.toProduct);
   }
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey('order_items', this.toOrder);
-    await queryRunner.dropForeignKey('order_items', this.toProduct);
-    await queryRunner.dropTable('order_items');
+    await queryRunner.dropForeignKey(this.tableName, this.toOrder);
+    await queryRunner.dropForeignKey(this.tableName, this.toProduct);
+    await queryRunner.dropTable(this.tableName);
   }
 }

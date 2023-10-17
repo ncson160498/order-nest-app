@@ -7,6 +7,6 @@ import { Manage } from './entities/manage.entity';
 @Module({
   controllers: [ManageController],
   providers: [ManageService],
-  imports:[TypeOrmModule.forFeature([Manage])]
+  imports: [TypeOrmModule.forFeature([Manage])],
 })
 export class ManageModule {}

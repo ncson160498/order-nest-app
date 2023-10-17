@@ -18,10 +18,12 @@ export class CustomerController {
   getCustomers() {
     return this.customerService.get();
   }
+
   @Post()
   store(@Body() createCustomerDto: CreateCustomerDto) {
     return this.customerService.create(createCustomerDto);
   }
+  
   @Patch(':id')
   update(
     @Param() customerId: string,

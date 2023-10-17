@@ -6,15 +6,16 @@ import { Repository } from 'typeorm';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { v4 as uuid } from 'uuid';
 import * as _ from 'lodash';
-import { log } from 'console';
 @Injectable()
 export class OrderService {
   constructor(
     @InjectRepository(Order)
-    private orderRepository: Repository<Order>,
+    private orderRepository: Repository<Order>
   ) {}
-  get() {
-    return this.orderRepository.find();
+  async get() {
+    const result = await this.orderRepository.find({});
+    console.log(result);
+    return result;
   }
   async create(createOrderDto: CreateOrderDto) {
     // return this.orderRepository.save(createOrderDto);

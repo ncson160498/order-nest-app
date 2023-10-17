@@ -17,9 +17,10 @@ export class Customer1697428019018 implements MigrationInterface {
           type: 'varchar',
           isNullable: false,
         },
+        // Review code
         {
           name: 'phone',
-          type: 'int',
+          type: 'varchar',
           isNullable: false,
         },
         {

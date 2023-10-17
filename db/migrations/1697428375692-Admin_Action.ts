@@ -5,7 +5,7 @@ import {
   TableForeignKey,
 } from 'typeorm';
 
-export class AdminAction1697210723967 implements MigrationInterface {
+export class AdminAction1697428375692 implements MigrationInterface {
   private toOrder = new TableForeignKey({
     name: 'fk_admin_action_order',
     columnNames: ['order_id'],
