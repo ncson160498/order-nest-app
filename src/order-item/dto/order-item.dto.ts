@@ -1,6 +1,6 @@
-import { PrimaryGeneratedColumn } from "typeorm";
+import { Column, PrimaryGeneratedColumn } from "typeorm";
 import { Expose } from "class-transformer";
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsNotEmpty, IsOptional, IsString } from "class-validator";
 
 export class CreateOrderItemDto {
   // @Expose()
@@ -18,16 +18,22 @@ export class CreateOrderItemDto {
   @IsString()
   quantity: string;
 
-  @Expose()
-  @IsNotEmpty()
-  @IsString()
-  price: string;
+  // @Expose()
+  // @IsNotEmpty()
+  // @IsString()
+  // price: string;
 }
 
 export class UpdateOrderItemDto {
   @IsString()
-  quantity: string;
+  @IsOptional()
+  @Column({ name: "product_id" })
+  productId: string;
 
   @IsString()
-  price: string;
+  @IsOptional()
+  quantity: string;
+
+  // @IsString()
+  // price: string;
 }

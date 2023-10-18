@@ -1,12 +1,15 @@
-import { IsString } from 'class-validator';
+import { IsOptional, IsString } from "class-validator";
+import { Column } from "typeorm";
 
 export class UpdateOrderDto {
   @IsString()
-  order_name: string;
+  @Column({ name: "order_name" })
+  orderName: string;
 
   @IsString()
+  @IsOptional()
   status: string;
 
-  @IsString()
-  total_price:string;
+  // @IsString()
+  // total_price:string;
 }

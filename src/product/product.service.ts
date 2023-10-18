@@ -31,7 +31,6 @@ export class ProductService {
   }
 
   update(id: string, body: UpdateProductDto) {
-    console.log(id);
     return this.productRepository.update(id, body);
   }
 

@@ -29,7 +29,7 @@ export class Order {
   @Field()
   public status: string;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ name: "createdDate" })
   public createdDate: Date;
 
   @Column({ name: "total_price", type: "numeric", precision: 30 })

@@ -9,6 +9,8 @@ import { ManageModule } from './manage/manage.module';
 import { dataSourceOptions } from 'db/data-source';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { OrderItemModule } from './order-item/order-item.module';
+import { ListOrderController } from './list-order/list-order.controller';
+import { ListOrderModule } from './list-order/list-order.module';
 
 @Module({
   imports: [
@@ -19,7 +21,8 @@ import { OrderItemModule } from './order-item/order-item.module';
     ManageModule,
     ProductModule,
     OrderItemModule,
+    ListOrderModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, ListOrderController],
 })
 export class AppModule {}

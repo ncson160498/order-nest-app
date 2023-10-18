@@ -1,12 +1,15 @@
-import { IsString } from "class-validator"
+import { IsOptional, IsString } from "class-validator";
 
-export class UpdateProductDto{
-    @IsString()
-    name:string
+export class UpdateProductDto {
+  @IsString()
+  @IsOptional()
+  name: string;
 
-    @IsString()
-    quantity:string
+  @IsString()
+  @IsOptional()
+  quantity: string;
 
-    @IsString()
-    price:string
+  @IsString()
+  @IsOptional()
+  price: string;
 }
