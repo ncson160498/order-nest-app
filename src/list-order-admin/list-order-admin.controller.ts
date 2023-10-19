@@ -1,14 +1,13 @@
-import { ListOrderService } from "./list-order.service";
+import { ListOrderService } from "./list-order-admin.service";
 import { Controller, Get, Param, Query } from "@nestjs/common";
 
-@Controller("list-order")
+@Controller("list-order-admin")
 export class ListOrderController {
   constructor(private listOrderService: ListOrderService) {}
 
   @Get()
   async getAll(@Query() query: any) {
-    console.log(query);
-    return this.listOrderService.getListOrder(query?.son);
+    return this.listOrderService.getListOrder(query?.name);
   }
   @Get(":id")
   async getOne(@Param() id: string) {

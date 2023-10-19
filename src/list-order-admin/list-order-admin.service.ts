@@ -9,17 +9,7 @@ import { DataSource, Repository, createQueryBuilder } from "typeorm";
 
 @Injectable()
 export class ListOrderService {
-  constructor(
-    @InjectRepository(Order)
-    private orderRepo: Repository<Order>,
-    @InjectRepository(Customer)
-    private customerRepo: Repository<Customer>,
-    @InjectRepository(OrderItem)
-    private orderItemRepo: Repository<OrderItem>,
-    @InjectRepository(Product)
-    private productRepo: Repository<Product>,
-    private dataSource: DataSource
-  ) {}
+  constructor(private dataSource: DataSource) {}
 
   //   async getListOrder() {
   //     try {
@@ -39,14 +29,15 @@ export class ListOrderService {
   //   }
   async getListOrder(name: any) {
     try {
+      console.log("name: ", name);
       const queryBuilder = this.dataSource
         .createQueryBuilder(Order, "order")
         .select([
           "order.id",
           "order.customerID",
           "order.createdDate",
-          "orderItem.id",
           "order.orderName",
+          "orderItem.id",
           "orderItem.quantity",
           "product.id",
         ]);
@@ -100,7 +91,7 @@ export class ListOrderService {
         .leftJoin("order.orderItems", "orderItem")
         .leftJoin("orderItem.product", "product")
         .where("order.id=:Name", { Name: id.id })
-        .getOne();
+        .getMany();
 
       return result;
     } catch (error) {

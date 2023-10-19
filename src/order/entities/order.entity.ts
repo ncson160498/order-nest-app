@@ -1,3 +1,4 @@
+import { AdminAction } from "src/admin-action/entities/admin-action.entity";
 import { Customer } from "src/customer/entities/customer.entity";
 import { OrderItem } from "src/order-item/entities/order-item.entity";
 import { Field } from "type-graphql";
@@ -8,12 +9,13 @@ import {
   JoinColumn,
   ManyToOne,
   OneToMany,
+  PrimaryColumn,
   PrimaryGeneratedColumn,
 } from "typeorm";
 
 @Entity()
 export class Order {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryColumn("uuid")
   @Field()
   public id: string;
 
@@ -42,4 +44,7 @@ export class Order {
 
   @OneToMany(() => OrderItem, (orderItem) => orderItem.order)
   public orderItems: OrderItem[];
+
+  @OneToMany(() => AdminAction, (adminAction) => adminAction.order)
+  public adminActions: AdminAction[];
 }

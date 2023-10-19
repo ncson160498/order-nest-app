@@ -1,14 +1,17 @@
+import { Manage } from "./../manage/entities/manage.entity";
 import { CreateOrderBodyDto } from "./dto/create-order.dto";
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Order } from "./entities/order.entity";
-import { DataSource, Repository } from "typeorm";
+import { ArrayOverlap, DataSource, Repository } from "typeorm";
 import { UpdateOrderDto } from "./dto/update-order.dto";
 import { v4 as uuid } from "uuid";
 import * as _ from "lodash";
 import { OrderItem } from "src/order-item/entities/order-item.entity";
 import { Product } from "src/product/entities/product.entity";
 import { UpdateProductDto } from "src/product/dto/update-product.dto";
+import { AdminAction } from "src/admin-action/entities/admin-action.entity";
+import { combineLatest } from "rxjs";
 @Injectable()
 export class OrderService {
   constructor(
@@ -82,11 +85,60 @@ export class OrderService {
     }
   }
 
-  update(id: string, body: UpdateOrderDto) {
-    return this.orderRepository.update(id, body);
+  async update(id: any, body: UpdateOrderDto) {
+    // return this.orderRepository.update(id, body);
+    const queryRunner = this.dataSource.createQueryRunner();
+    try {
+      await queryRunner.connect();
+      await queryRunner.startTransaction();
+      const order = await queryRunner.manager.findOne(Order, {
+        where: { id: id.id },
+      });
+      const { userID, ...createBody } = body;
+      _.assign(order, createBody);
+      const updateOrder = await queryRunner.manager.update(Order, id, order);
+
+      const adminAction = new AdminAction();
+      adminAction.id = uuid();
+      adminAction.action = createBody.status;
+      adminAction.orderID = order.id;
+      adminAction.userID = userID;
+      const newAdminAction = await queryRunner.manager.save(
+        AdminAction,
+        adminAction
+      );
+      await queryRunner.commitTransaction();
+      return [updateOrder, newAdminAction];
+    } catch (error) {
+      await queryRunner.rollbackTransaction();
+      throw error;
+    } finally {
+      await queryRunner.release();
+    }
   }
-  getOne(id: any) {
-    return this.orderRepository.findOne({ where: { id: id.id } });
+  async getOne(id: any) {
+    try {
+      const result = await this.dataSource
+        .createQueryBuilder(Order, "order")
+        .select([
+          "order.id",
+          "order.customerID",
+          "order.orderName",
+          "order.createdDate",
+          "order.totalPrice",
+          "order.status",
+          "manage.name",
+          "adminAction.action",
+          "adminAction.dateAction",
+        ])
+        .leftJoin("order.adminActions", "adminAction")
+        .leftJoin("adminAction.manage", "manage")
+        .where("order.id=:id", { id: id.id })
+        .getOne();
+      return result;
+    } catch (error) {
+      throw error;
+    }
   }
   delete(id: string) {
     return this.orderRepository.delete(id);

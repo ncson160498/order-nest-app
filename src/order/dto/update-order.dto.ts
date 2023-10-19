@@ -1,9 +1,10 @@
-import { IsOptional, IsString } from "class-validator";
+import { Type } from "class-transformer";
+import { IsOptional, IsString, IsUUID, ValidateNested } from "class-validator";
 import { Column } from "typeorm";
 
 export class UpdateOrderDto {
   @IsString()
-  @Column({ name: "order_name" })
+  @IsOptional()
   orderName: string;
 
   @IsString()
@@ -12,4 +13,8 @@ export class UpdateOrderDto {
 
   // @IsString()
   // total_price:string;
+  @IsOptional()
+  // @ValidateNested({ each: true })
+  @IsString()
+  userID: string;
 }

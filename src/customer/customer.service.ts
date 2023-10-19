@@ -1,18 +1,18 @@
-import { Injectable, Param } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { CreateCustomerDto } from './dto/create-customer.dto';
-import { Customer } from './entities/customer.entity';
-import { UpdateCustomerDto } from './dto/update-customer.dto';
+import { Injectable, Param } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { CreateCustomerDto } from "./dto/create-customer.dto";
+import { Customer } from "./entities/customer.entity";
+import { UpdateCustomerDto } from "./dto/update-customer.dto";
 // import * as uuid from 'uuid';
-import { v4 as uuid } from 'uuid';
-import * as _ from 'lodash';
+import { v4 as uuid } from "uuid";
+import * as _ from "lodash";
 @Injectable()
 export class CustomerService {
   [x: string]: any;
   constructor(
     @InjectRepository(Customer)
-    private customerRepository: Repository<Customer>,
+    private customerRepository: Repository<Customer>
   ) {}
   get() {
     return this.customerRepository.find();
@@ -33,7 +33,6 @@ export class CustomerService {
     }
   }
   update(data: any, updateCustomerDto: UpdateCustomerDto) {
-    console.log(data);
     return this.customerRepository.update(data.id, updateCustomerDto);
   }
   getOne(data: any) {
