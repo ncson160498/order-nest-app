@@ -12,7 +12,9 @@ import { OrderItemModule } from "./order-item/order-item.module";
 import { ListOrderController } from "./list-order-admin/list-order-admin.controller";
 import { ListOrderModule } from "./list-order-admin/list-order-admin.module";
 import { ListOrderCustomerModule } from "./list-order-customer/list-order-customer.module";
-import { AdminActionModule } from './admin-action/admin-action.module';
+import { AdminActionModule } from "./admin-action/admin-action.module";
+import { ReportModule } from "./report/report-revenue/report.module";
+import { ReportProductDayModule } from "./report/report-product-day/report-product-day.module";
 
 @Module({
   imports: [
@@ -26,6 +28,8 @@ import { AdminActionModule } from './admin-action/admin-action.module';
     ListOrderModule,
     ListOrderCustomerModule,
     AdminActionModule,
+    ReportModule,
+    ReportProductDayModule,
   ],
   controllers: [AppController, ListOrderController],
 })

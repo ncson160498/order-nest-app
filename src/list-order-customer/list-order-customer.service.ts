@@ -1,3 +1,4 @@
+import { query } from "express";
 import { Injectable } from "@nestjs/common";
 import { Customer } from "src/customer/entities/customer.entity";
 import { DataSource } from "typeorm";
